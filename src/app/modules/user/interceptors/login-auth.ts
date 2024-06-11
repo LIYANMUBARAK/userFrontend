@@ -22,26 +22,23 @@ export class LoginAuth implements HttpInterceptor {
 
     // Clone the request and add the token to the headers if it exists
     if (token) {
-      console.log("recheddddd")
+      console.log("Token found, adding to headers");
       const authReq = request.clone({
         setHeaders: { Authorization: `Bearer ${token}` },
       });
-    console.log('Request with Auth Header:', authReq); // Debugging line)
+      console.log('Request with Auth Header:', authReq); // Debugging line
       return next.handle(authReq).pipe(
         tap((event: HttpEvent<any>) => {
           console.log('Incoming HTTP response', event);
         })
-      );;
-    }else{
- // If there's no token, just pass the original request
- return next.handle(request).pipe(
-  tap((event: HttpEvent<any>) => {
-    console.log('Incoming HTTP response', event);
-  })
-);
+      );
+    } else {
+      // If there's no token, just pass the original request
+      return next.handle(request).pipe(
+        tap((event: HttpEvent<any>) => {
+          console.log('Incoming HTTP response', event);
+        })
+      );
     }
-
-   
-      
   }
 }

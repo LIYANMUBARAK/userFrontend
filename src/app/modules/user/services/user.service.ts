@@ -13,4 +13,8 @@ export class UserService {
   login(userDetails:any){
    return this.http.post(`${this.apiUrl}/login`,userDetails)
   }
+
+  getUser(phonenumber:Number){
+    return this.http.get(`${this.apiUrl}/getUser/${phonenumber}`)
+  }
 }
